@@ -4,158 +4,278 @@
   <meta charset="utf-8" />
   <title>Trattoria di Napoli — Catering Menu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#b91c1c" />
+  <link rel="icon" href="1ca13fd1-ac33-4ce2-bf66-bed7732d3d33.png" />
   <link href="https://fonts.googleapis.com/css2?family=Italiana&display=swap" rel="stylesheet" />
   <style>
-    :root { --brand:#b91c1c; }
-    body { margin:0; background:#fffdf9; font-family:Arial, sans-serif; color:#1a1a1a; line-height:1.6; }
-    header, footer { background:#fff4ef; border-bottom:2px solid var(--brand); padding:1rem 0; text-align:center; }
-    h1, h2 { font-family:'Italiana', serif; color:#b91c1c; margin-top:2rem; text-align:center; }
-    .container { width:min(1100px,92%); margin:auto; }
-    table { width:100%; border-collapse:collapse; margin-bottom:2rem; }
-    th, td { padding:.5rem; border-bottom:1px solid #ddd; vertical-align:top; }
-    th { background:#fff1ec; font-weight:bold; color:#7a0000; text-align:left; }
-    .note { font-size:.95rem; color:#555; margin: .25rem 0 1rem; text-align:center; }
-    .subnote { font-size:.85rem; color:#666; margin-top:-.5rem; text-align:center; }
-    .back { display:inline-block; margin:.5rem 0 0; color:#b91c1c; text-decoration:none; font-weight:700; }
-    .back:hover { text-decoration:underline; }
+    :root { --brand:#b91c1c; --accent:#f97316; }
+
+    body {
+      margin:0; background:#fffdf9;
+      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      color:#1a1a1a; line-height:1.6;
+    }
+    a{color:var(--brand);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container { width:min(1120px,92%); margin-inline:auto; }
+
+    /* 🇮🇹 top stripe */
+    .flag-bar{height:6px;background:linear-gradient(90deg,#008C45 0 33.333%, #F4F5F0 33.333% 66.666%, #CD212A 66.666% 100%)}
+
+    /* Header (kept identical across pages) */
+    header{
+      position:sticky; top:0; z-index:50;
+      background:rgba(255,248,240,.95);
+      border-bottom:2px solid var(--brand);
+      backdrop-filter:saturate(180%) blur(8px);
+    }
+    .nav{
+      display:grid; grid-template-columns:auto 1fr auto;
+      align-items:center; gap:1rem; padding:.75rem 0;
+      position:relative; /* for mobile dropdown */
+    }
+    .brand{
+      display:flex; align-items:center; gap:.6rem;
+      font-family:'Italiana', serif; font-weight:800; font-size:1.6rem;
+      color:var(--brand); white-space:nowrap;
+    }
+    .brand .logo img{width:58px;height:58px;object-fit:contain;display:block}
+
+    /* Desktop nav centered */
+    nav{justify-self:center}
+    nav ul{list-style:none;display:flex;gap:1.1rem;margin:0;padding:0;font-weight:600}
+    nav a{padding:.45rem .65rem;border-radius:10px;color:#1a1a1a}
+    nav a:hover{background:#ffe4e1}
+
+    /* Order Online (desktop right) */
+    .primary{
+      background:#b91c1c;border:none;color:#fff;
+      padding:.55rem .85rem;border-radius:12px;font-weight:700;white-space:nowrap;
+    }
+
+    /* Hamburger + mobile dropdown (desktop unaffected) */
+    .hamburger{display:none;font-size:2rem;line-height:1;background:none;border:none;color:var(--brand);cursor:pointer}
+    .main-nav{} /* desktop uses normal flow */
+    @media (max-width:720px){
+      .hamburger{display:block;justify-self:center}
+      .desktop-order{display:none} /* hide header order button; use sticky */
+      .main-nav{
+        position:absolute; top:100%; left:0; right:0;
+        background:#fff8f0; border-bottom:2px solid var(--brand);
+        box-shadow:0 12px 30px rgba(0,0,0,.15);
+        display:none; z-index:60;
+      }
+      .main-nav.open{display:block}
+      .main-nav ul{flex-direction:column;align-items:flex-start;gap:.25rem;padding:1rem;margin:0}
+      .main-nav a{display:block;width:100%;padding:.75rem .25rem}
+    }
+
+    /* Page heading */
+    .hero{
+      padding:5rem 0 1.25rem;
+      text-align:center;
+      background:rgba(255,255,255,.9);
+      border-radius:20px;
+      margin-top:1rem;
+    }
+    .hero h1{font-family:'Italiana', serif; font-size:3rem; color:var(--brand); margin:0 0 .25rem;}
+    .note { font-size:.95rem; color:#555; margin:.25rem auto 1rem; text-align:center; }
+    .subnote { font-size:.85rem; color:#666; margin:-.25rem auto 1.2rem; text-align:center; }
+
+    /* Tables */
+    h2 { font-family:'Italiana', serif; color:#b91c1c; margin-top:2rem; text-align:center; }
+    table { width:100%; border-collapse:collapse; margin-bottom:2rem; background:#fff; border:2px solid #ffe0d8; border-radius:12px; overflow:hidden; }
+    th, td { padding:.6rem .7rem; border-bottom:1px solid #eee; vertical-align:top; }
+    th { background:#fff1ec; font-weight:700; color:#7a0000; text-align:left; }
+    tr:last-child td { border-bottom:none; }
+
+    /* Footer */
+    footer{
+      text-align:center; padding:2rem 0; color:#444;
+      border-top:2px solid var(--brand); background:rgba(255,255,255,.9);
+      margin-top:2rem;
+    }
+
+    /* Sticky mobile order button */
+    .mobile-order{display:none;position:fixed;left:0;right:0;bottom:12px;width:min(560px,92%);margin:0 auto;z-index:70}
+    .mobile-order a{display:block;text-align:center;padding:1rem 1.1rem;border-radius:14px;background:#b91c1c;color:#fff;font-weight:800;text-decoration:none;box-shadow:0 12px 30px rgba(0,0,0,.25)}
+    .mobile-order a:active{transform:translateY(1px)}
+    @media (max-width:720px){ .mobile-order{display:block} }
   </style>
 </head>
 <body>
+  <div class="flag-bar"></div>
 
-<header>
-  <div class="container">
-    <a class="back" href="index.html">← Back to Home</a>
+  <header>
+    <div class="container nav" role="navigation" aria-label="Main">
+      <!-- LEFT: brand -->
+      <a class="brand" href="index.html">
+        <span class="logo"><img src="1ca13fd1-ac33-4ce2-bf66-bed7732d3d33.png" alt="Trattoria di Napoli Logo"></span>
+        <span>Trattoria di Napoli</span>
+      </a>
+
+      <!-- CENTER: hamburger + nav -->
+      <button class="hamburger" aria-label="Open menu" aria-expanded="false">☰</button>
+      <nav class="main-nav">
+        <ul id="menu">
+          <li><a href="about.html">About</a></li>
+          <li><a href="location.html">Location &amp; Hours</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="catering.html">Catering Menu</a></li>
+          <li><a href="connect.html">Connect</a></li>
+        </ul>
+      </nav>
+
+      <!-- RIGHT: order (desktop) -->
+      <a class="primary desktop-order" href="https://www.trattoriadinapolirestaurant.com/?utm_source=gbp#menu" target="_blank" rel="noreferrer">Order Online</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Catering Menu</h1>
+      <p class="note"><strong>Available for dine-in or takeout catering.</strong> Half trays serve 8–10 • Full trays serve 16–20.</p>
+    </section>
+
+    <!-- SALADS -->
+    <h2>Salads</h2>
+    <p class="subnote">*All salads include salad dressing; there is a charge for extra or additional dressings.</p>
+    <table>
+      <tr><th>Item</th><th>Half</th><th>Full</th></tr>
+      <tr><td>Tossed Salad</td><td>$45</td><td>$55</td></tr>
+      <tr><td>Antipasto</td><td>$50</td><td>$70</td></tr>
+      <tr><td>Chopped Antipasto</td><td>$55</td><td>$75</td></tr>
+      <tr><td>Caprese Salad — Lettuce, Tomato & Fresh Mozzarella</td><td>$60</td><td>$90</td></tr>
+      <tr><td>Cobb Salad — Romaine, Bacon, Gorgonzola & Grilled Chicken</td><td>$65</td><td>$95</td></tr>
+      <tr><td>Caesar Salad</td><td>$50</td><td>$70</td></tr>
+      <tr><td>Grilled Chicken Caesar</td><td>$65</td><td>$85</td></tr>
+      <tr><td>Homemade Pasta Salad — Broccoli, Mushrooms, Black Olives, Roasted Red Peppers, Fresh Mozzarella & Chicken</td><td>$50</td><td>$75</td></tr>
+    </table>
+
+    <!-- APPETIZERS -->
+    <h2>Appetizers</h2>
+    <table>
+      <tr><th>Item</th><th>Half</th><th>Full</th></tr>
+      <tr><td>Garlic Knots</td><td>$20</td><td>$30</td></tr>
+      <tr><td>Lunch Meat Tray — Ham, Salami, Turkey, Provolone</td><td>$40</td><td>$80</td></tr>
+      <tr><td>Prosciutto, Fresh Mozzarella & Roasted Peppers</td><td>$55</td><td>$85</td></tr>
+      <tr><td>Vegetable Medley</td><td>$65</td><td>$70</td></tr>
+      <tr><td>Contorni</td><td>$60</td><td>$75</td></tr>
+      <tr><td>Broccoli Rabe & Sausage</td><td>$70</td><td>$90</td></tr>
+      <tr><td>Fried Calamari</td><td>$60</td><td>$95</td></tr>
+      <tr><td>Tomato Pie</td><td>$17</td><td>$32</td></tr>
+      <tr><td>Party Stromboli — Veggie, Meat Lover, or Italian (each)</td><td colspan="2">$30.00</td></tr>
+      <tr><td>Chicken Wings</td><td>$65</td><td>$90</td></tr>
+      <tr><td>Homemade Bruschetta</td><td>$40</td><td>$60</td></tr>
+      <tr><td>Mussels Marinara</td><td>$60</td><td>$90</td></tr>
+      <tr><td>Chicken Fingers & Fries (25 Half / 50 Full)</td><td>$65</td><td>$90</td></tr>
+      <tr><td>Macaroni & Cheese</td><td>$50</td><td>$75</td></tr>
+    </table>
+
+    <!-- SPECIALTY DISHES -->
+    <h2>Specialty Dishes</h2>
+    <table>
+      <tr><th>Item</th><th>Half</th><th>Full</th></tr>
+      <tr><td>Penne Alla Vodka</td><td>$65</td><td>$95</td></tr>
+      <tr><td>Tortellini Aurora</td><td>$65</td><td>$95</td></tr>
+      <tr><td>Tortellini Pucinella — Peas, Prosciutto & Shallot (Alfredo or Aurora)</td><td>$65</td><td>$95</td></tr>
+      <tr><td>Penne Broccoli & Spinach</td><td>$60</td><td>$95</td></tr>
+      <tr><td>Fettuccine Alfredo</td><td>$65</td><td>$95</td></tr>
+      <tr><td>Eggplant Parmigiana</td><td>$65</td><td>$95</td></tr>
+      <tr><td>Cheese Ravioli</td><td>$65</td><td>$95</td></tr>
+      <tr><td>Baked Ziti</td><td>$55</td><td>$80</td></tr>
+      <tr><td>Lasagna</td><td>$85</td><td>$115</td></tr>
+      <tr><td>Spinach Lasagna</td><td>$80</td><td>$115</td></tr>
+      <tr><td>Shrimp Lasagna</td><td>$95</td><td>$135</td></tr>
+      <tr><td>Chicken Veggie Lasagna</td><td>$85</td><td>$115</td></tr>
+      <tr><td>Stuffed Shells</td><td>$65</td><td>$95</td></tr>
+      <tr><td>Manicotti</td><td>$65</td><td>$95</td></tr>
+      <tr><td>Gnocchi — Served with Mozzarella & Marinara</td><td>$65</td><td>$95</td></tr>
+      <tr><td>Gnocchi Pesto — Oil-based or Cream-based</td><td>$65</td><td>$95</td></tr>
+      <tr><td>Meatballs or Sausage</td><td>$65</td><td>$95</td></tr>
+      <tr><td>Sausage, Peppers & Onions</td><td>$70</td><td>$99</td></tr>
+      <tr><td>Eggplant Rollatini</td><td>$65</td><td>$95</td></tr>
+      <tr><td>Fresh Porkette</td><td>$65</td><td>$95</td></tr>
+      <tr><td>Shrimp Scampi</td><td>$85</td><td>$145</td></tr>
+      <tr><td>Shrimp Fra Diavolo</td><td>$85</td><td>$145</td></tr>
+      <tr><td>Linguini Crab & Scallops</td><td>$95</td><td>$165</td></tr>
+      <tr><td>Seafood Pescatore</td><td>$115</td><td>$185</td></tr>
+    </table>
+
+    <!-- CHICKEN -->
+    <h2>Chicken Dishes</h2>
+    <table>
+      <tr><th>Item</th><th>Half</th><th>Full</th></tr>
+      <tr><td>Chicken Parmigiana — Cutlet topped with Mozzarella & Meat Sauce</td><td>$80</td><td>$125</td></tr>
+      <tr><td>Chicken Marsala — Sweet Marsala Wine & Mushrooms</td><td>$65</td><td>$105</td></tr>
+      <tr><td>Chicken Trattoria — Roasted Red Peppers, White Wine & Garlic</td><td>$65</td><td>$105</td></tr>
+      <tr><td>Chicken Francese — Egg-dipped, sautéed in Lemon-Butter-Garlic</td><td>$70</td><td>$115</td></tr>
+      <tr><td>Chicken Piccata — Capers, Lemon & Garlic</td><td>$65</td><td>$105</td></tr>
+      <tr><td>Chicken Trattoria di Napoli — Broccoli, Shrimp & Chicken in White Wine & Garlic</td><td>$75</td><td>Call</td></tr>
+      <tr><td>Chicken Primavera — Zucchini, Mushroom, Broccoli & Tomato in White Wine & Garlic</td><td>$70</td><td>$110</td></tr>
+      <tr><td>Creamy Alfredo — Alfredo with Chicken over Penne</td><td>$80</td><td>$125</td></tr>
+    </table>
+
+    <!-- VEAL -->
+    <h2>Veal Dishes</h2>
+    <table>
+      <tr><th>Item</th><th>Half</th><th>Full</th></tr>
+      <tr><td>Veal Parmigiana</td><td>$85</td><td>$120</td></tr>
+      <tr><td>Veal Marsala</td><td>$85</td><td>$120</td></tr>
+      <tr><td>Veal Alla Napoli — Broccoli, Shrimp & Veal in White Wine & Garlic</td><td>$95</td><td>$145</td></tr>
+      <tr><td>Veal Piccata</td><td>$80</td><td>$115</td></tr>
+      <tr><td>Veal Francese</td><td>$90</td><td>$135</td></tr>
+      <tr><td>Veal Scallopine w/ Pasta — Roasted Red Peppers & Mushrooms in Tomato-Basil Sauce</td><td>$85</td><td>$125</td></tr>
+    </table>
+
+    <!-- DESSERTS -->
+    <h2>Desserts</h2>
+    <table>
+      <tr><th>Item</th><th>Half</th><th>Full</th></tr>
+      <tr><td>Mixed Desserts</td><td>$50</td><td></td></tr>
+      <tr><td>Tiramisu Cake</td><td>$50</td><td>$80</td></tr>
+      <tr><td>Mini Cannoli (15/30)</td><td>$40</td><td>$65</td></tr>
+      <tr><td>Chocolate Cake (14 slices)</td><td>$35</td><td></td></tr>
+      <tr><td>Carrot Cake (14 slices)</td><td>$35</td><td></td></tr>
+      <tr><td>Italian Cheese Cake</td><td>$65</td><td></td></tr>
+      <tr><td>Crème Brûlée Cheese Cake</td><td>$45</td><td></td></tr>
+    </table>
+
+    <!-- EXTRAS -->
+    <h2>Extras</h2>
+    <table>
+      <tr><th>Item</th><th>Half</th><th>Full</th></tr>
+      <tr><td>Alfredo or Aurora Sauce</td><td>$6</td><td>$8</td></tr>
+      <tr><td>Vodka Sauce</td><td>$8</td><td>$12</td></tr>
+      <tr><td>Salad Dressing</td><td>$4</td><td>$6</td></tr>
+      <tr><td>Parmigiana Cheese</td><td>$9</td><td></td></tr>
+      <tr><td>Butter (for about 10 people)</td><td>$4</td><td></td></tr>
+    </table>
+
+    <p class="note">*Prices based upon purchase of a catering tray. Individual portions are priced differently — please ask for details.</p>
+    <p class="subnote">**Dressing choices include: House Italian, Creamy Italian, Balsamic, Ranch, Blue Cheese, French, Caesar.</p>
+  </main>
+
+  <!-- Sticky mobile order -->
+  <div class="mobile-order">
+    <a href="https://www.trattoriadinapolirestaurant.com/?utm_source=gbp#menu" target="_blank" rel="noreferrer">Order Online</a>
   </div>
-</header>
 
-<main class="container">
+  <footer>
+    <div class="container">Call to place your order: <strong>(302) 838-7711</strong> • © <span id="year"></span> Trattoria di Napoli Restaurant</div>
+  </footer>
 
-  <h1>Catering Menu</h1>
-  <p class="note"><strong>Available for dine-in or takeout catering.</strong> Half trays serve 8–10 • Full trays serve 16–20.</p>
-
-  <!-- SALADS -->
-  <h2>Salads</h2>
-  <p class="subnote">*All salads include salad dressing; there is a charge for extra or additional dressings.</p>
-  <table>
-    <tr><th>Item</th><th>Half</th><th>Full</th></tr>
-    <tr><td>Tossed Salad</td><td>$45</td><td>$55</td></tr>
-    <tr><td>Antipasto</td><td>$50</td><td>$70</td></tr>
-    <tr><td>Chopped Antipasto</td><td>$55</td><td>$75</td></tr>
-    <tr><td>Caprese Salad — Lettuce, Tomato & Fresh Mozzarella</td><td>$60</td><td>$90</td></tr>
-    <tr><td>Cobb Salad — Romaine, Bacon, Gorgonzola & Grilled Chicken</td><td>$65</td><td>$95</td></tr>
-    <tr><td>Caesar Salad</td><td>$50</td><td>$70</td></tr>
-    <tr><td>Grilled Chicken Caesar</td><td>$65</td><td>$85</td></tr>
-    <tr><td>Homemade Pasta Salad — Broccoli, Mushrooms, Black Olives, Roasted Red Peppers, Fresh Mozzarella & Chicken</td><td>$50</td><td>$75</td></tr>
-  </table>
-
-  <!-- APPETIZERS -->
-  <h2>Appetizers</h2>
-  <table>
-    <tr><th>Item</th><th>Half</th><th>Full</th></tr>
-    <tr><td>Garlic Knots</td><td>$20</td><td>$30</td></tr>
-    <tr><td>Lunch Meat Tray — Ham, Salami, Turkey, Provolone</td><td>$40</td><td>$80</td></tr>
-    <tr><td>Prosciutto, Fresh Mozzarella & Roasted Peppers</td><td>$55</td><td>$85</td></tr>
-    <tr><td>Vegetable Medley</td><td>$65</td><td>$70</td></tr>
-    <tr><td>Contorni</td><td>$60</td><td>$75</td></tr>
-    <tr><td>Broccoli Rabe & Sausage</td><td>$70</td><td>$90</td></tr>
-    <tr><td>Fried Calamari</td><td>$60</td><td>$95</td></tr>
-    <tr><td>Tomato Pie</td><td>$17</td><td>$32</td></tr>
-    <tr><td>Party Stromboli — Veggie, Meat Lover, or Italian (each)</td><td colspan="2">$30.00</td></tr>
-    <tr><td>Chicken Wings</td><td>$65</td><td>$90</td></tr>
-    <tr><td>Homemade Bruschetta</td><td>$40</td><td>$60</td></tr>
-    <tr><td>Mussels Marinara</td><td>$60</td><td>$90</td></tr>
-    <tr><td>Chicken Fingers & Fries (25 Half / 50 Full)</td><td>$65</td><td>$90</td></tr>
-    <tr><td>Macaroni & Cheese</td><td>$50</td><td>$75</td></tr>
-  </table>
-
-  <!-- SPECIALTY DISHES -->
-  <h2>Specialty Dishes</h2>
-  <table>
-    <tr><th>Item</th><th>Half</th><th>Full</th></tr>
-    <tr><td>Penne Alla Vodka</td><td>$65</td><td>$95</td></tr>
-    <tr><td>Tortellini Aurora</td><td>$65</td><td>$95</td></tr>
-    <tr><td>Tortellini Pucinella — Peas, Prosciutto & Shallot (Alfredo or Aurora)</td><td>$65</td><td>$95</td></tr>
-    <tr><td>Penne Broccoli & Spinach</td><td>$60</td><td>$95</td></tr>
-    <tr><td>Fettuccine Alfredo</td><td>$65</td><td>$95</td></tr>
-    <tr><td>Eggplant Parmigiana</td><td>$65</td><td>$95</td></tr>
-    <tr><td>Cheese Ravioli</td><td>$65</td><td>$95</td></tr>
-    <tr><td>Baked Ziti</td><td>$55</td><td>$80</td></tr>
-    <tr><td>Lasagna</td><td>$85</td><td>$115</td></tr>
-    <tr><td>Spinach Lasagna</td><td>$80</td><td>$115</td></tr>
-    <tr><td>Shrimp Lasagna</td><td>$95</td><td>$135</td></tr>
-    <tr><td>Chicken Veggie Lasagna</td><td>$85</td><td>$115</td></tr>
-    <tr><td>Stuffed Shells</td><td>$65</td><td>$95</td></tr>
-    <tr><td>Manicotti</td><td>$65</td><td>$95</td></tr>
-    <tr><td>Gnocchi — Served with Mozzarella & Marinara</td><td>$65</td><td>$95</td></tr>
-    <tr><td>Gnocchi Pesto — Oil-based or Cream-based</td><td>$65</td><td>$95</td></tr>
-    <tr><td>Meatballs or Sausage</td><td>$65</td><td>$95</td></tr>
-    <tr><td>Sausage, Peppers & Onions</td><td>$70</td><td>$99</td></tr>
-    <tr><td>Eggplant Rollatini</td><td>$65</td><td>$95</td></tr>
-    <tr><td>Fresh Porkette</td><td>$65</td><td>$95</td></tr>
-    <tr><td>Shrimp Scampi</td><td>$85</td><td>$145</td></tr>
-    <tr><td>Shrimp Fra Diavolo</td><td>$85</td><td>$145</td></tr>
-    <tr><td>Linguini Crab & Scallops</td><td>$95</td><td>$165</td></tr>
-    <tr><td>Seafood Pescatore</td><td>$115</td><td>$185</td></tr>
-  </table>
-
-  <!-- CHICKEN -->
-  <h2>Chicken Dishes</h2>
-  <table>
-    <tr><th>Item</th><th>Half</th><th>Full</th></tr>
-    <tr><td>Chicken Parmigiana — Cutlet topped with Mozzarella & Meat Sauce</td><td>$80</td><td>$125</td></tr>
-    <tr><td>Chicken Marsala — Sweet Marsala Wine & Mushrooms</td><td>$65</td><td>$105</td></tr>
-    <tr><td>Chicken Trattoria — Roasted Red Peppers, White Wine & Garlic</td><td>$65</td><td>$105</td></tr>
-    <tr><td>Chicken Francese — Egg-dipped, sautéed in Lemon-Butter-Garlic</td><td>$70</td><td>$115</td></tr>
-    <tr><td>Chicken Piccata — Capers, Lemon & Garlic</td><td>$65</td><td>$105</td></tr>
-    <tr><td>Chicken Trattoria di Napoli — Broccoli, Shrimp & Chicken in White Wine & Garlic</td><td>$75</td><td>Call</td></tr>
-    <tr><td>Chicken Primavera — Zucchini, Mushroom, Broccoli & Tomato in White Wine & Garlic</td><td>$70</td><td>$110</td></tr>
-    <tr><td>Creamy Alfredo — Alfredo with Chicken over Penne</td><td>$80</td><td>$125</td></tr>
-  </table>
-
-  <!-- VEAL -->
-  <h2>Veal Dishes</h2>
-  <table>
-    <tr><th>Item</th><th>Half</th><th>Full</th></tr>
-    <tr><td>Veal Parmigiana</td><td>$85</td><td>$120</td></tr>
-    <tr><td>Veal Marsala</td><td>$85</td><td>$120</td></tr>
-    <tr><td>Veal Alla Napoli — Broccoli, Shrimp & Veal in White Wine & Garlic</td><td>$95</td><td>$145</td></tr>
-    <tr><td>Veal Piccata</td><td>$80</td><td>$115</td></tr>
-    <tr><td>Veal Francese</td><td>$90</td><td>$135</td></tr>
-    <tr><td>Veal Scallopine w/ Pasta — Roasted Red Peppers & Mushrooms in Tomato-Basil Sauce</td><td>$85</td><td>$125</td></tr>
-  </table>
-
-  <!-- DESSERTS -->
-  <h2>Desserts</h2>
-  <table>
-    <tr><th>Item</th><th>Half</th><th>Full</th></tr>
-    <tr><td>Mixed Desserts</td><td>$50</td><td></td></tr>
-    <tr><td>Tiramisu Cake</td><td>$50</td><td>$80</td></tr>
-    <tr><td>Mini Cannoli (15/30)</td><td>$40</td><td>$65</td></tr>
-    <tr><td>Chocolate Cake (14 slices)</td><td>$35</td><td></td></tr>
-    <tr><td>Carrot Cake (14 slices)</td><td>$35</td><td></td></tr>
-    <tr><td>Italian Cheese Cake</td><td>$65</td><td></td></tr>
-    <tr><td>Crème Brûlée Cheese Cake</td><td>$45</td><td></td></tr>
-  </table>
-
-  <!-- EXTRAS -->
-  <h2>Extras</h2>
-  <table>
-    <tr><th>Item</th><th>Half</th><th>Full</th></tr>
-    <tr><td>Alfredo or Aurora Sauce</td><td>$6</td><td>$8</td></tr>
-    <tr><td>Vodka Sauce</td><td>$8</td><td>$12</td></tr>
-    <tr><td>Salad Dressing</td><td>$4</td><td>$6</td></tr>
-    <tr><td>Parmigiana Cheese</td><td>$9</td><td></td></tr>
-    <tr><td>Butter (for about 10 people)</td><td>$4</td><td></td></tr>
-  </table>
-
-  <p class="note">*Prices based upon purchase of a catering tray. Individual portions are priced differently — please ask for details.</p>
-  <p class="subnote">**Dressing choices include: House Italian, Creamy Italian, Balsamic, Ranch, Blue Cheese, French, Caesar.</p>
-
-</main>
-
-<footer>
-  <div class="container">Call to place your order: <strong>(302) 838-7711</strong></div>
-</footer>
-
+  <script>
+    document.getElementById('year').textContent=new Date().getFullYear();
+    (function(){
+      const btn=document.querySelector('.hamburger');
+      const nav=document.querySelector('.main-nav');
+      if(!btn||!nav) return;
+      btn.addEventListener('click',()=>{
+        const open=nav.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    })();
+  </script>
 </body>
 </html>
