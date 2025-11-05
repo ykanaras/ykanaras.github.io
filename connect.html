@@ -4,100 +4,193 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Connect With Us — Trattoria di Napoli</title>
+  <meta name="theme-color" content="#b91c1c" />
+  <link rel="icon" href="1ca13fd1-ac33-4ce2-bf66-bed7732d3d33.png" />
   <link href="https://fonts.googleapis.com/css2?family=Italiana&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
-    :root{--brand:#b91c1c;}
+    :root{--brand:#b91c1c;--accent:#f97316}
+
     body{
       margin:0;
       font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-      background:#fff8f0;
-      color:#1a1a1a;
-      line-height:1.6;
+      background:url('https://www.toptal.com/designers/subtlepatterns/uploads/pizza.png') repeat #fff8f0;
+      color:#1a1a1a; line-height:1.6;
     }
-    .container{width:min(1100px,92%);margin:auto;padding:2rem 0;}
+    a{color:var(--brand);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{width:min(1120px,92%);margin-inline:auto}
+
+    /* 🇮🇹 top stripe */
+    .flag-bar{height:6px;background:linear-gradient(90deg,#008C45 0 33.333%, #F4F5F0 33.333% 66.666%, #CD212A 66.666% 100%)}
+
+    /* Header (desktop unchanged to match site) */
     header{
-      padding:1rem 0;
+      position:sticky; top:0; z-index:50;
+      background:rgba(255,248,240,.95);
       border-bottom:2px solid var(--brand);
-      background:#fff8f0;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
+      backdrop-filter:saturate(180%) blur(8px);
     }
-    .brand{display:flex;align-items:center;gap:.75rem;color:var(--brand);font-family:'Italiana',serif;font-size:1.9rem;font-weight:600;text-decoration:none;}
-    .brand img{width:75px;height:75px;object-fit:contain;}
-    nav ul{display:flex;gap:1rem;list-style:none;margin:0;padding:0;font-weight:600;}
-    nav a{text-decoration:none;color:#1a1a1a;} nav a:hover{color:var(--brand);}
-    h1{text-align:center;font-family:'Italiana',serif;font-size:2.6rem;color:var(--brand);margin-top:2rem;}
+    .nav{
+      display:grid; grid-template-columns:auto 1fr auto;
+      align-items:center; gap:1rem; padding:.75rem 0;
+      position:relative; /* for mobile dropdown positioning */
+    }
+    .brand{
+      display:flex; align-items:center; gap:.6rem;
+      font-family:'Italiana', serif; font-weight:800; font-size:1.6rem;
+      color:var(--brand); white-space:nowrap;
+    }
+    .brand .logo img{width:58px;height:58px;object-fit:contain;display:block}
+
+    /* Desktop nav centered */
+    nav{justify-self:center}
+    nav ul{list-style:none;display:flex;gap:1.1rem;margin:0;padding:0;font-weight:600}
+    nav a{padding:.45rem .65rem;border-radius:10px;color:#1a1a1a}
+    nav a:hover{background:#ffe4e1}
+
+    /* Order Online (desktop right) */
+    .primary{
+      background:#b91c1c;border:none;color:#fff;
+      padding:.55rem .85rem;border-radius:12px;font-weight:700;white-space:nowrap;
+    }
+
+    /* Hamburger + mobile dropdown (desktop unaffected) */
+    .hamburger{display:none;font-size:2rem;line-height:1;background:none;border:none;color:var(--brand);cursor:pointer}
+    .main-nav{} /* desktop uses normal flow */
+    @media (max-width:720px){
+      .hamburger{display:block;justify-self:center}
+      .desktop-order{display:none} /* hide header order button; use sticky*/
+      .main-nav{
+        position:absolute; top:100%; left:0; right:0;
+        background:#fff8f0; border-bottom:2px solid var(--brand);
+        box-shadow:0 12px 30px rgba(0,0,0,.15);
+        display:none; z-index:60;
+      }
+      .main-nav.open{display:block}
+      .main-nav ul{flex-direction:column;align-items:flex-start;gap:.25rem;padding:1rem;margin:0}
+      .main-nav a{display:block;width:100%;padding:.75rem .25rem}
+    }
+
+    /* Page heading */
+    .hero{
+      padding:5rem 0 2rem;
+      text-align:center;
+      background:rgba(255,255,255,.9);
+      border-radius:20px;
+      margin-top:1rem;
+    }
+    .hero h1{font-family:'Italiana', serif;font-size:3rem;color:var(--brand);margin:0 0 .25rem}
+
+    /* Social section */
     .social-list{
-      display:flex;
-      justify-content:center;
-      gap:2.5rem;
-      flex-wrap:wrap;
+      display:flex; justify-content:center; gap:2.5rem; flex-wrap:wrap;
       margin-top:2.5rem;
     }
-    .social-item{text-align:center;font-size:1.1rem;}
+    .social-item{text-align:center;font-size:1.1rem}
     .social-item a{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      width:95px;
-      height:95px;
-      border-radius:50%;
-      background:var(--brand);
-      color:white;
-      font-size:2.3rem;
-      transition:.3s;
-      margin:auto;
+      display:flex; align-items:center; justify-content:center;
+      width:95px; height:95px; border-radius:50%;
+      background:var(--brand); color:#fff; font-size:2.3rem;
+      transition:.3s; margin:auto;
     }
-    .social-item a:hover{background:#7a1212;transform:translateY(-4px);}
-    footer{text-align:center;margin-top:3rem;padding:2rem 0;border-top:2px solid var(--brand);color:#444;}
+    .social-item a:hover{background:#7a1212; transform:translateY(-4px)}
+    .social-item p{margin-top:.5rem;color:#333}
+
+    footer{
+      text-align:center; padding:2rem 0;
+      border-top:2px solid var(--brand); background:rgba(255,255,255,.9);
+      color:#444; margin-top:3rem;
+    }
+
+    /* Sticky mobile order button */
+    .mobile-order{display:none;position:fixed;left:0;right:0;bottom:12px;width:min(560px,92%);margin:0 auto;z-index:70}
+    .mobile-order a{display:block;text-align:center;padding:1rem 1.1rem;border-radius:14px;background:#b91c1c;color:#fff;font-weight:800;text-decoration:none;box-shadow:0 12px 30px rgba(0,0,0,.25)}
+    .mobile-order a:active{transform:translateY(1px)}
+    @media (max-width:720px){ .mobile-order{display:block} }
   </style>
 </head>
 <body>
+  <div class="flag-bar"></div>
 
-<header class="container">
-  <a href="index.html" class="brand">
-    <img src="1ca13fd1-ac33-4ce2-bf66-bed7732d3d33.png" alt="Logo">
-    Trattoria di Napoli
-  </a>
-  <nav>
-    <ul>
-      <li><a href="about.html">About</a></li>
-      <li><a href="location.html">Location & Hours</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="catering.html">Catering Menu</a></li>
-    </ul>
-  </nav>
-</header>
+  <header>
+    <div class="container nav" role="navigation" aria-label="Main">
+      <!-- LEFT: brand -->
+      <a class="brand" href="index.html">
+        <span class="logo"><img src="1ca13fd1-ac33-4ce2-bf66-bed7732d3d33.png" alt="Trattoria di Napoli Logo"></span>
+        <span>Trattoria di Napoli</span>
+      </a>
 
-<div class="container">
-  <h1>Connect With Us</h1>
+      <!-- CENTER: hamburger + nav -->
+      <button class="hamburger" aria-label="Open menu" aria-expanded="false">☰</button>
+      <nav class="main-nav">
+        <ul id="menu">
+          <li><a href="about.html">About</a></li>
+          <li><a href="location.html">Location &amp; Hours</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="catering.html">Catering Menu</a></li>
+          <li><a href="connect.html">Connect</a></li>
+        </ul>
+      </nav>
 
-  <div class="social-list">
-    <div class="social-item">
-      <a href="https://www.instagram.com/trattoria_dinapoli_?igsh=d2Eya3h2Y3Mydzdu&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
-      <p>@trattoria_dinapoli_</p>
+      <!-- RIGHT: order (desktop) -->
+      <a class="primary desktop-order" href="https://www.trattoriadinapolirestaurant.com/?utm_source=gbp#menu" target="_blank" rel="noreferrer">Order Online</a>
     </div>
+  </header>
 
-    <div class="social-item">
-      <a href="https://www.facebook.com/share/16ZJAsU7bW/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook"></i></a>
-      <p>Find Us on Facebook</p>
-    </div>
+  <main class="container">
+    <section class="hero">
+      <h1>Connect With Us</h1>
+      <p>Follow, tag, and share your favorite dishes!</p>
+    </section>
 
-    <div class="social-item">
-      <a href="https://www.tiktok.com/@trattoriadinapoli_?_r=1&_t=ZT-919GLE5z0Hn" target="_blank"><i class="fab fa-tiktok"></i></a>
-      <p>@trattoriadinapoli_</p>
-    </div>
+    <section class="container" style="padding:1rem 0">
+      <div class="social-list">
+        <div class="social-item">
+          <a href="https://www.instagram.com/trattoria_dinapoli_?igsh=d2Eya3h2Y3Mydzdu&utm_source=qr" target="_blank" rel="noreferrer" aria-label="Instagram">
+            <i class="fab fa-instagram" aria-hidden="true"></i>
+          </a>
+          <p>@trattoria_dinapoli_</p>
+        </div>
+
+        <div class="social-item">
+          <a href="https://www.facebook.com/share/16ZJAsU7bW/?mibextid=wwXIfr" target="_blank" rel="noreferrer" aria-label="Facebook">
+            <i class="fab fa-facebook" aria-hidden="true"></i>
+          </a>
+          <p>Find Us on Facebook</p>
+        </div>
+
+        <div class="social-item">
+          <a href="https://www.tiktok.com/@trattoriadinapoli_?_r=1&_t=ZT-919GLE5z0Hn" target="_blank" rel="noreferrer" aria-label="TikTok">
+            <i class="fab fa-tiktok" aria-hidden="true"></i>
+          </a>
+          <p>@trattoriadinapoli_</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Sticky mobile order -->
+  <div class="mobile-order">
+    <a href="https://www.trattoriadinapolirestaurant.com/?utm_source=gbp#menu" target="_blank" rel="noreferrer">Order Online</a>
   </div>
-</div>
 
-<footer>
-  © <span id="year"></span> Trattoria di Napoli Restaurant • Bear, Delaware
-</footer>
+  <footer>
+    © <span id="year"></span> Trattoria di Napoli Restaurant • Bear, Delaware
+  </footer>
 
-<script>document.getElementById('year').textContent=new Date().getFullYear()</script>
-
+  <script>
+    document.getElementById('year').textContent=new Date().getFullYear();
+    (function(){
+      const btn=document.querySelector('.hamburger');
+      const nav=document.querySelector('.main-nav');
+      if(!btn||!nav) return;
+      btn.addEventListener('click',()=>{
+        const open=nav.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    })();
+  </script>
 </body>
 </html>
