@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Gift Cards — Trattoria di Napoli Restaurant</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#b91c1c" />
+  <link rel="icon" href="1ca13fd1-ac33-4ce2-bf66-bed7732d3d33.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Italiana&display=swap" rel="stylesheet" />
+  <style>
+    :root{--brand:#b91c1c;--accent:#f97316}
+    body{
+      margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      color:#1a1a1a;line-height:1.6;
+      background:url('https://www.toptal.com/designers/subtlepatterns/uploads/pizza.png') repeat #fff8f0;
+    }
+    a{color:var(--brand);text-decoration:none} a:hover{text-decoration:underline}
+    .container{width:min(1120px,92%);margin-inline:auto}
+    .flag-bar{height:6px;background:linear-gradient(90deg,#008C45 0 33.333%, #F4F5F0 33.333% 66.666%, #CD212A 66.666% 100%)}
+
+    header{
+      position:sticky;top:0;z-index:50;background:rgba(255,248,240,.95);
+      border-bottom:2px solid var(--brand);backdrop-filter:saturate(180%) blur(8px);
+    }
+    .nav{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1rem;padding:.75rem 0;position:relative}
+    .brand{display:flex;align-items:center;gap:.6rem;font-family:'Italiana', serif;font-size:1.6rem;font-weight:800;color:var(--brand);white-space:nowrap}
+    .brand .logo img{width:58px;height:58px;object-fit:contain;display:block}
+    nav{justify-self:center}
+    nav ul{list-style:none;display:flex;gap:1.1rem;margin:0;padding:0;font-weight:600}
+    nav a{padding:.45rem .65rem;border-radius:10px;color:#1a1a1a}
+    nav a:hover{background:#ffe4e1}
+    .primary{background:#b91c1c;border:none;color:#fff;padding:.55rem .85rem;border-radius:12px;font-weight:700;white-space:nowrap}
+
+    .hamburger{display:none;font-size:2rem;line-height:1;background:none;border:none;color:var(--brand);cursor:pointer}
+    .main-nav{}
+    @media (max-width:720px){
+      .hamburger{display:block;justify-self:center}
+      .desktop-order{display:none}
+      .main-nav{
+        position:absolute;top:100%;left:0;right:0;background:#fff8f0;border-bottom:2px solid var(--brand);
+        box-shadow:0 12px 30px rgba(0,0,0,.15);display:none;z-index:60;
+      }
+      .main-nav.open{display:block}
+      .main-nav ul{flex-direction:column;align-items:flex-start;gap:.25rem;padding:1rem;margin:0}
+      .main-nav a{display:block;width:100%;padding:.75rem .25rem}
+    }
+
+    .hero{padding:5rem 0 2rem;text-align:center;background:rgba(255,255,255,.9);border-radius:20px;margin-top:1rem}
+    .hero h1{font-family:'Italiana', serif;font-size:3rem;color:var(--brand);margin:0 0 .25rem}
+
+    .card{background:#fff;border:2px solid var(--accent);border-radius:18px;padding:1.5rem;transition:.2s;margin-top:1rem}
+    .card:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.2)}
+
+    footer{text-align:center;padding:2rem 0;background:rgba(255,255,255,.9);border-top:2px solid var(--brand);margin-top:2rem}
+
+    .mobile-order{display:none;position:fixed;left:0;right:0;bottom:12px;width:min(560px,92%);margin:0 auto;z-index:70}
+    .mobile-order a{display:block;text-align:center;padding:1rem 1.1rem;border-radius:14px;background:#b91c1c;color:#fff;font-weight:800;text-decoration:none;box-shadow:0 12px 30px rgba(0,0,0,.25)}
+    .mobile-order a:active{transform:translateY(1px)}
+    @media (max-width:720px){ .mobile-order{display:block} }
+  </style>
+</head>
+<body>
+  <div class="flag-bar"></div>
+
+  <header>
+    <div class="container nav" role="navigation" aria-label="Main">
+      <a class="brand" href="index.html">
+        <span class="logo"><img src="1ca13fd1-ac33-4ce2-bf66-bed7732d3d33.png" alt="Trattoria di Napoli Logo"></span>
+        <span>Trattoria di Napoli</span>
+      </a>
+
+      <button class="hamburger" aria-label="Open menu" aria-expanded="false">☰</button>
+
+      <nav class="main-nav">
+        <ul id="menu">
+          <li><a href="index.html">Home Page</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="location.html">Location &amp; Hours</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="catering.html">Catering Menu</a></li>
+          <li><a href="happenings.html">Happenings</a></li>
+          <li><a href="giftcards.html">Gift Cards</a></li>
+          <li><a href="connect.html">Connect With Us</a></li>
+        </ul>
+      </nav>
+
+      <a class="primary desktop-order" href="https://www.trattoriadinapolirestaurant.com/?utm_source=gbp#menu" target="_blank" rel="noreferrer">Order Online</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Gift Cards</h1>
+      <p>A delicious way to say “thank you,” “congratulations,” or “let’s grab dinner soon.”</p>
+    </section>
+
+    <section class="card" aria-label="Gift Card Information">
+      <h2 style="margin-top:0;font-family:'Italiana', serif;color:var(--brand);">Give the Gift of Trattoria di Napoli</h2>
+      <p>
+        Gift cards can be bought directly at the restaurant in any amount. Just ask your server or visit the front counter during business hours.
+      </p>
+      <p style="margin-bottom:.75rem">
+        They’re perfect for holidays, birthdays, graduations, and anyone who loves great Italian food.
+      </p>
+      <a class="primary" href="tel:+13028387711">Call Us with Gift Card Questions — (302) 838-7711</a>
+    </section>
+  </main>
+
+  <div class="mobile-order">
+    <a href="https://www.trattoriadinapolirestaurant.com/?utm_source=gbp#menu" target="_blank" rel="noreferrer">Order Online</a>
+  </div>
+
+  <footer>
+    <div class="container">© <span id="year"></span> Trattoria di Napoli Restaurant • Bear, DE</div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent=new Date().getFullYear();
+
+    (function(){
+      const btn=document.querySelector('.hamburger');
+      const nav=document.querySelector('.main-nav');
+      if(!btn||!nav) return;
+      btn.addEventListener('click',()=>{
+        const open=nav.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    })();
+  </script>
+</body>
+</html>
