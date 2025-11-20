@@ -30,18 +30,25 @@
     }
     .nav{
       display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1rem;
-      padding:.75rem 0;position:relative; /* positioning ctx for mobile dropdown */
+      padding:.75rem 0;position:relative;
     }
     .brand{
       display:flex;align-items:center;gap:.6rem;
       font-family:'Italiana', serif;font-weight:800;font-size:1.6rem;color:var(--brand);white-space:nowrap;
     }
-    .brand .logo img{width:58px;height:58px;object-fit:contain;display:block}
+    /* slightly smaller logo to give nav more room */
+    .brand .logo img{width:52px;height:52px;object-fit:contain;display:block}
 
     /* Desktop nav centered */
     nav{justify-self:center}
-    nav ul{list-style:none;display:flex;gap:1.1rem;margin:0;padding:0;font-weight:600}
-    nav a{padding:.45rem .65rem;border-radius:10px;color:#1a1a1a}
+    nav ul{
+      list-style:none;display:flex;gap:.9rem;margin:0;padding:0;
+      font-weight:600;font-size:.95rem; /* a bit smaller text */
+    }
+    nav a{
+      padding:.35rem .5rem;           /* slightly tighter padding */
+      border-radius:10px;color:#1a1a1a;
+    }
     nav a:hover{background:#ffe4e1}
 
     /* Order Online (desktop right) */
@@ -52,10 +59,10 @@
 
     /* Hamburger + mobile dropdown (desktop unaffected) */
     .hamburger{display:none;font-size:2rem;line-height:1;background:none;border:none;color:var(--brand);cursor:pointer}
-    .main-nav{} /* desktop uses normal flow */
+    .main-nav{}
     @media (max-width:720px){
       .hamburger{display:block;justify-self:center}
-      .desktop-order{display:none} /* hide header order button; use sticky*/
+      .desktop-order{display:none}
       .main-nav{
         position:absolute;top:100%;left:0;right:0;
         background:#fff8f0;border-bottom:2px solid var(--brand);
@@ -63,7 +70,7 @@
         display:none;z-index:60;
       }
       .main-nav.open{display:block}
-      .main-nav ul{flex-direction:column;align-items:flex-start;gap:.25rem;padding:1rem;margin:0}
+      .main-nav ul{flex-direction:column;align-items:flex-start;gap:.25rem;padding:1rem;margin:0;font-size:1rem}
       .main-nav a{display:block;width:100%;padding:.75rem .25rem}
     }
 
